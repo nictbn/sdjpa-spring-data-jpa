@@ -36,4 +36,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             nativeQuery = true)
     Book findBookByTitleNativeQuery(@Param("title") String title);
 
+    Book jpaNamed(@Param("title") String title);
+
 }
