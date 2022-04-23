@@ -10,11 +10,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("local")
 @DataJpaTest
@@ -51,5 +52,12 @@ public class BookRepositoryTest {
             count.incrementAndGet();
         });
         assertThat(count.get()).isGreaterThan(5);
+    }
+
+    @Test
+    void testBookFuture() throws ExecutionException, InterruptedException {
+        Future<Book> bookFuture = bookRepository.queryByTitle("Clean Code");
+        Book book = bookFuture.get();
+        assertNotNull(book);
     }
 }
