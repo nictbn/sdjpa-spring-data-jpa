@@ -2,6 +2,7 @@ package guru.springframework.jdbc.repositories;
 
 import guru.springframework.jdbc.domain.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.Nullable;
 import org.springframework.scheduling.annotation.Async;
 
@@ -22,5 +23,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Async
     Future<Book> queryByTitle(String title);
+
+    @Query("SELECT b FROM Book b where b.title = ?1")
+    Book findBookByTitleWithQuery(String title);
 
 }
