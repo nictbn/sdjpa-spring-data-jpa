@@ -3,6 +3,7 @@ package guru.springframework.jdbc.repositories;
 import guru.springframework.jdbc.domain.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.lang.Nullable;
 import org.springframework.scheduling.annotation.Async;
 
@@ -26,5 +27,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("SELECT b FROM Book b where b.title = ?1")
     Book findBookByTitleWithQuery(String title);
+
+    @Query("SELECT b FROM Book b where b.title = :title")
+    Book findBookByTitleWithQueryNamed(@Param("title") String title);
 
 }
