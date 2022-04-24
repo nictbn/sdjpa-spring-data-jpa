@@ -3,6 +3,8 @@ package guru.springframework.jdbc.dao;
 import guru.springframework.jdbc.domain.Book;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.List;
+
 
 public class BookDaoJDBCTemplate implements BookDao {
     private final JdbcTemplate jdbcTemplate;
@@ -19,6 +21,11 @@ public class BookDaoJDBCTemplate implements BookDao {
     @Override
     public Book findBookByTitle(String title) {
         return jdbcTemplate.queryForObject("SELECT * FROM book where title = ?", getBookMapper(), title);
+    }
+
+    @Override
+    public List<Book> findAllBooks() {
+        return jdbcTemplate.query("SELECT * FROM book", getBookMapper());
     }
 
     @Override

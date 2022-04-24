@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Component
 public class BookDaoImpl implements BookDao {
@@ -25,6 +26,11 @@ public class BookDaoImpl implements BookDao {
     public Book findBookByTitle(String title) {
         return bookRepository.findBookByTitle(title)
                 .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public List<Book> findAllBooks() {
+        return null;
     }
 
     @Override
