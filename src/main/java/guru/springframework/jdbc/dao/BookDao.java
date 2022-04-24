@@ -16,4 +16,6 @@ public interface BookDao {
     Book findBookByTitle(String title);
 
     List<Book> findAllBooks();
+
+    List<Book> findAllBooks(int pageSize, int offset);
 }

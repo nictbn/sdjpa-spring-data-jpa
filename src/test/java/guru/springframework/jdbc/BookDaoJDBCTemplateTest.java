@@ -100,4 +100,25 @@ class BookDaoJDBCTemplateTest {
         assertThat(books).isNotNull();
         assertThat(books.size()).isGreaterThan(5);
     }
+
+    @Test
+    void testFindAllBooksPage1() {
+        List<Book> books = bookDao.findAllBooks(10, 0);
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isGreaterThan(5);
+    }
+
+    @Test
+    void testFindAllBooksPage2() {
+        List<Book> books = bookDao.findAllBooks(10, 10);
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isGreaterThan(5);
+    }
+
+    @Test
+    void testFindAllBooksPage100() {
+        List<Book> books = bookDao.findAllBooks(10, 1000);
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isGreaterThan(5);
+    }
 }

@@ -29,11 +29,6 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public List<Book> findAllBooks() {
-        return null;
-    }
-
-    @Override
     public Book saveNewBook(Book book) {
         return bookRepository.save(book);
     }
@@ -52,5 +47,15 @@ public class BookDaoImpl implements BookDao {
     @Override
     public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Book> findAllBooks() {
+        return null;
+    }
+
+    @Override
+    public List<Book> findAllBooks(int pageSize, int offset) {
+        return null;
     }
 }
