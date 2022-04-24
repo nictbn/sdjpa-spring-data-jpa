@@ -145,7 +145,6 @@ public class BookDaoImplTest {
         assertThat(books).isNotNull();
     }
 
-    @Disabled
     @Test
     void testFindAllBooksPage1SortByTitle() {
         List<Book> books = bookDao.findAllBooksSortByTitle(PageRequest.of(0, 10,
