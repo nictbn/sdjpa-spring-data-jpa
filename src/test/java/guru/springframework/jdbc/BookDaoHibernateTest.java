@@ -37,7 +37,6 @@ public class BookDaoHibernateTest {
     void findAllBooksSortByTitle() {
     }
 
-    @Disabled
     @Test
     void findAllBooks() {
         List<Book> books = bookDao.findAllBooks(PageRequest.of(0, 10));
