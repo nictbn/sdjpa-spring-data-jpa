@@ -3,14 +3,15 @@ package guru.springframework.jdbc;
 import guru.springframework.jdbc.dao.BookDao;
 import guru.springframework.jdbc.dao.BookDaoHibernate;
 import guru.springframework.jdbc.domain.Book;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
 import javax.persistence.EntityManagerFactory;
@@ -31,17 +32,6 @@ public class BookDaoHibernateTest {
     @BeforeEach
     void setUp() {
         bookDao = new BookDaoHibernate(emf);
-    }
-
-    @Test
-    void findAllBooksSortByTitle() {
-    }
-
-    @Test
-    void findAllBooks() {
-        List<Book> books = bookDao.findAllBooks(PageRequest.of(0, 10));
-        assertThat(books).isNotNull();
-        assertThat(books.size()).isEqualTo(10);
     }
 
     @Test
@@ -106,5 +96,20 @@ public class BookDaoHibernateTest {
         Book deleted = bookDao.getById(saved.getId());
 
         assertThat(deleted).isNull();
+    }
+
+    @Test
+    void findAllBooks() {
+        List<Book> books = bookDao.findAllBooks(PageRequest.of(0, 10));
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isEqualTo(10);
+    }
+
+    @Test
+    void testFindAllBooksPage1SortByTitle() {
+        List<Book> books = bookDao.findAllBooksSortByTitle(PageRequest.of(0, 10,
+                Sort.by(Sort.Order.desc("title"))));
+        AssertionsForClassTypes.assertThat(books).isNotNull();
+        AssertionsForClassTypes.assertThat(books.size()).isGreaterThan(5);
     }
 }
